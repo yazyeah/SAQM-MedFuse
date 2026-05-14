@@ -140,7 +140,7 @@ The routing weights are computed by:
 
 ```math
 \boldsymbol{\alpha}_i =
-\operatorname{TopKSoftmax}
+\mathrm{TopKSoftmax}
 \left(
 r\!\left(
 \left[
@@ -185,7 +185,7 @@ The credibility head predicts normalized branch weights:
 \begin{aligned}
 w^{(b)}_i
 &=
-\operatorname{softmax}_{b}
+\mathrm{softmax}_{b}
 \left(
 g_{\mathrm{cred}}
 \left(
@@ -315,7 +315,7 @@ with:
 
 ```math
 \lambda_i =
-\operatorname{clip}
+\mathrm{clip}
 \left(
 g_{\mathrm{safe}}\left(\mathbf{d}_i, \mathbf{u}_i\right),
 0,
@@ -351,7 +351,7 @@ The crisis-tail correction uses high quantile evidence from branchwise or expert
 ```math
 \boldsymbol{\delta}^{\mathrm{tail}}_i =
 \boldsymbol{\kappa}_i \odot
-\operatorname{ReLU}
+\mathrm{ReLU}
 \left(
 \mathbf{q}^{\tau}_i
 - \hat{\mathbf{y}}^{(0)}_i
@@ -459,9 +459,9 @@ The upper-tail asymmetric loss emphasizes clinically undesirable underestimation
 \omega^{\mathrm{tail}}_i
 \sum_{d \in \{\mathrm{SBP}, \mathrm{DBP}\}}
 \left[
-\eta_d \operatorname{ReLU}(y_{i,d}-\hat{y}_{i,d})
+\eta_d \mathrm{ReLU}(y_{i,d}-\hat{y}_{i,d})
 +
-\operatorname{ReLU}(\hat{y}_{i,d}-y_{i,d})
+\mathrm{ReLU}(\hat{y}_{i,d}-y_{i,d})
 \right].
 ```
 
