@@ -170,8 +170,7 @@ SAQM-MedFuse attaches regression branches to the PPG, ECG, and fused representat
 For branch $b \in \{ppg, ecg, fuse\}$, the branch regressor outputs a mean prediction and a log-variance vector:
 
 $$
-\left(\boldsymbol{\mu}^{(b)}_i, \mathbf{s}^{(b)}_i\right)
-=
+\left(\boldsymbol{\mu}^{(b)}_i, \mathbf{s}^{(b)}_i\right) =
 g^{(b)}_{\mathrm{reg}}\left(\mathbf{z}^{(b)}_i\right),
 \quad
 \mathbf{s}^{(b)}_i = \log \boldsymbol{\sigma}^{2,(b)}_i.
@@ -262,8 +261,7 @@ $$
 A guided decision head learns from anchor predictions, anchor disagreement, routing behavior, quality scores, and uncertainty descriptors. It is trained with classification, knowledge-distillation, ordinal-consistency, and proxy-BP objectives:
 
 $$
-\mathcal{L}_{guide}
-=
+\mathcal{L}_{guide} =
 \mathcal{L}_{focal}
 +
 \lambda_{KD}\mathcal{L}_{KD}
@@ -343,12 +341,19 @@ The crisis-tail correction uses high quantile evidence from branchwise or expert
 
 $$
 \boldsymbol{\delta}^{tail}_i =
+
 \boldsymbol{\kappa}_i \odot
+
 \mathrm{ReLU}
+
 \left(
+
 \mathbf{q}^{\tau}_i
+
 -
+
 \hat{\mathbf{y}}^{(0)}_i
+
 -
 \mathbf{m}
 \right),
@@ -367,8 +372,7 @@ $$
 where:
 
 $$
-\mathcal{H}
-=
+\mathcal{H} =
 \left\{
 \theta:
 \Delta MAE(\theta) \le \epsilon_{mae},
@@ -411,8 +415,7 @@ Here, $n_u$ is the number of support samples for subject $u$, $\tau$ is the shri
 The overall training objective combines regression, uncertainty, auxiliary decision, router, credibility, and tail-safety terms:
 
 $$
-\mathcal{L}
-=
+\mathcal{L} =
 \mathcal{L}_{reg}
 +
 \lambda_{NLL}\mathcal{L}_{NLL}
