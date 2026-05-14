@@ -396,58 +396,6 @@ The full main protocol and exhaustive search variants can be time-consuming. For
 
 Generated results are written to `outputs/`, which is ignored by Git.
 
-## 7. What Not to Upload
-
-Do not upload:
-
-- `<YOUR_LOCAL_MIMIC_BP_ROOT>` or any raw MIMIC-BP/MIMIC/PhysioNet data directory
-- extracted `ppg/`, `ecg/`, `abp/`, `resp/`, or `labels/`
-- model weights: `*.pt`, `*.pth`, `*.ckpt`
-- `outputs/` full experiment directories
-- per-subject or per-sample predictions
-- virtual environments: `.venv/`
-- IDE folders: `.idea/`, `.vscode/`
-- downloaded paper PDFs
-
-Upload:
-
-- source code
-- reproducibility scripts
-- configuration examples with placeholders
-- aggregate paper summaries
-- selected non-sensitive figures
-- documentation
-
-## 8. Upload to GitHub
-
-Use the clean release directory, not the original local experiment workspace:
-
-```powershell
-cd <PATH_TO_THIS_RELEASE_DIRECTORY>
-git init
-git add .
-git status
-git commit -m "Release SAQM-MedFuse reproducibility package"
-git branch -M main
-git remote add origin https://github.com/yazyeah/SAQM-MedFuse.git
-git push -u origin main
-```
-
-Before pushing, inspect `git status` carefully and confirm that no raw data, checkpoints, or private paths are staged.
-
-Recommended pre-upload checks:
-
-```powershell
-.\scripts\check_release_safety.ps1
-.\scripts\check_experiment_completion.ps1
-```
-
-More detailed upload instructions are in:
-
-```text
-docs/UPLOAD_GUIDE.md
-```
-
 ## 9. Citation
 
 If you use this repository, please cite the associated SAQM-MedFuse paper and the dataset:
