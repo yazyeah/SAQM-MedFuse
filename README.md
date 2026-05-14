@@ -1,4 +1,4 @@
-# SAQM-MedFuse Codes and Reproducibility Package
+﻿# SAQM-MedFuse Codes and Reproducibility Package
 
 This repository provides the reproducibility code and aggregate paper results for:
 
@@ -45,6 +45,8 @@ The `results/` directory contains aggregate, paper-level outputs only. It intent
 
 ## 1. Model Explanation
 
+All display equations in this section use GitHub-flavored Markdown math fences so that the formulas render correctly on the GitHub repository page.
+
 ### 1.1 Problem Setup
 
 For each subject-level waveform segment, the model receives synchronized:
@@ -55,15 +57,15 @@ For each subject-level waveform segment, the model receives synchronized:
 
 For sample $i$, the input can be written as:
 
-$$
-\mathbf{x}_i = \left(\mathbf{x}^{ppg}_i, \mathbf{x}^{ecg}_i, \mathbf{x}^{num}_i\right),
-$$
+```math
+\mathbf{x}_i = \left(\mathbf{x}^{\mathrm{ppg}}_i, \mathbf{x}^{\mathrm{ecg}}_i, \mathbf{x}^{\mathrm{num}}_i\right).
+```
 
-where $\mathbf{x}^{num}_i$ is optional. The regression target is:
+where $\mathbf{x}^{\mathrm{num}}_i$ is optional. The regression target is:
 
-$$
-\mathbf{y}_i = [y^{sbp}_i, y^{dbp}_i] \in \mathbb{R}^2.
-$$
+```math
+\mathbf{y}_i = \left[y^{\mathrm{SBP}}_i, y^{\mathrm{DBP}}_i\right] \in \mathbb{R}^{2}.
+```
 
 The auxiliary risk stratification target uses four clinical BP categories:
 
@@ -73,9 +75,9 @@ Normal, Elevated, Stage 1, Stage 2
 
 The class label $c_i$ is derived from SBP/DBP clinical thresholds:
 
-$$
-c_i = f_{\mathrm{risk}}\left(y^{sbp}_i, y^{dbp}_i\right), \quad c_i \in \{0,1,2,3\}.
-$$
+```math
+c_i = f_{\mathrm{risk}}\left(y^{\mathrm{SBP}}_i, y^{\mathrm{DBP}}_i\right), \qquad c_i \in \{0,1,2,3\}.
+```
 
 The experimental protocol is subject-disjoint. In the paper setting, subjects are divided into train, validation, and test groups. Validation and test subjects are further split into support/query segments so that few-shot subject personalization is evaluated without subject leakage.
 
@@ -97,38 +99,35 @@ For each modality, the model extracts waveform features and a quality descriptor
 
 For modality $m \in \{ppg, ecg\}$, let $\boldsymbol{\phi}^{(m)}_i$ denote its handcrafted quality descriptor and $\mathbf{h}^{(m)}_i$ denote its learned waveform representation. A lightweight quality predictor estimates:
 
-$$
-q^{(m)}_i = \sigma\left(g^{(m)}_q\left(\boldsymbol{\phi}^{(m)}_i\right)\right),
-\quad q^{(m)}_i \in [0,1],
-$$
+```math
+q^{(m)}_i = \sigma\!\left(g^{(m)}_q\!\left(\boldsymbol{\phi}^{(m)}_i\right)\right), \qquad q^{(m)}_i \in [0,1].
+```
 
 where $\sigma(\cdot)$ is the sigmoid function. The modality token is:
 
-$$
+```math
 \mathbf{t}^{(m)}_i =
-\left[
-\mathbf{h}^{(m)}_i
-\Vert q^{(m)}_i
-\Vert a^{(m)}_i
-\right],
-$$
+\left[\mathbf{h}^{(m)}_i \,\Vert\, q^{(m)}_i \,\Vert\, a^{(m)}_i\right].
+```
 
 where $a^{(m)}_i$ is the modality availability indicator and $\Vert$ denotes concatenation.
 
 The cross-modal descriptor is:
 
-$$
+```math
+\begin{aligned}
 \mathbf{c}_i =
-\left[
-\left|\mathbf{h}^{ppg}_i - \mathbf{h}^{ecg}_i\right|
-\Vert
-\mathbf{h}^{ppg}_i \odot \mathbf{h}^{ecg}_i
-\Vert q^{ppg}_i
-\Vert q^{ecg}_i
-\Vert a^{ppg}_i
-\Vert a^{ecg}_i
-\right],
-$$
+\big[
+&\left|\mathbf{h}^{\mathrm{ppg}}_i - \mathbf{h}^{\mathrm{ecg}}_i\right|
+\,\Vert\,
+\left(\mathbf{h}^{\mathrm{ppg}}_i \odot \mathbf{h}^{\mathrm{ecg}}_i\right) \\
+&\,\Vert\, q^{\mathrm{ppg}}_i
+\,\Vert\, q^{\mathrm{ecg}}_i
+\,\Vert\, a^{\mathrm{ppg}}_i
+\,\Vert\, a^{\mathrm{ecg}}_i
+\big].
+\end{aligned}
+```
 
 where $\odot$ is element-wise multiplication. The sparse fusion router activates a small set of experts:
 
@@ -139,27 +138,29 @@ where $\odot$ is element-wise multiplication. The sparse fusion router activates
 
 The routing weights are computed by:
 
-$$
+```math
 \boldsymbol{\alpha}_i =
-\mathrm{TopKSoftmax}
+\operatorname{TopKSoftmax}
 \left(
-r\left(
+r\!\left(
 \left[
-\mathbf{t}^{ppg}_i
-\Vert \mathbf{t}^{ecg}_i
-\Vert \mathbf{t}^{num}_i
-\Vert \mathbf{c}_i
+\mathbf{t}^{\mathrm{ppg}}_i
+\,\Vert\,
+\mathbf{t}^{\mathrm{ecg}}_i
+\,\Vert\,
+\mathbf{t}^{\mathrm{num}}_i
+\,\Vert\,
+\mathbf{c}_i
 \right]
 \right)
 \right).
-$$
+```
 
 The fused representation is:
 
-$$
-\mathbf{z}_i =
-\sum_{e=1}^{E} \alpha_{i,e}\mathbf{z}^{(e)}_i.
-$$
+```math
+\mathbf{z}_i = \sum_{e=1}^{E} \alpha_{i,e}\mathbf{z}^{(e)}_i.
+```
 
 This design allows the model to reduce reliance on corrupted or missing modalities instead of assuming uniform modality reliability. In the code, the corresponding architecture and quality-aware augmentation utilities are mainly implemented in `aqm_bp_shared_v9.py` and reused by later v10/v11 protocol scripts.
 
@@ -169,39 +170,45 @@ SAQM-MedFuse attaches regression branches to the PPG, ECG, and fused representat
 
 For branch $b \in \{ppg, ecg, fuse\}$, the branch regressor outputs a mean prediction and a log-variance vector:
 
-$$
-\left(\boldsymbol{\mu}^{(b)}_i, \mathbf{s}^{(b)}_i\right) =
-g^{(b)}_{\mathrm{reg}}\left(\mathbf{z}^{(b)}_i\right),
-\quad
-\mathbf{s}^{(b)}_i = \log \boldsymbol{\sigma}^{2,(b)}_i.
-$$
+```math
+\begin{aligned}
+\left(\boldsymbol{\mu}^{(b)}_i, \mathbf{s}^{(b)}_i\right)
+&= g^{(b)}_{\mathrm{reg}}\!\left(\mathbf{z}^{(b)}_i\right), \\
+\mathbf{s}^{(b)}_i
+&= \log \boldsymbol{\sigma}^{2,(b)}_i .
+\end{aligned}
+```
 
 The credibility head predicts normalized branch weights:
 
-$$
-w^{(b)}_i =
-\mathrm{softmax}_b
+```math
+\begin{aligned}
+w^{(b)}_i
+&=
+\operatorname{softmax}_{b}
 \left(
 g_{\mathrm{cred}}
 \left(
-\mathbf{z}^{(b)}_i, q^{(b)}_i, a^{(b)}_i,
+\mathbf{z}^{(b)}_i,
+q^{(b)}_i,
+a^{(b)}_i,
 \boldsymbol{\sigma}^{2,(b)}_i
 \right)
-\right),
-\quad
-\sum_b w^{(b)}_i = 1.
-$$
+\right), \\
+\sum_b w^{(b)}_i &= 1.
+\end{aligned}
+```
 
 The initial BP estimate is:
 
-$$
+```math
 \hat{\mathbf{y}}^{(0)}_i =
 \sum_b w^{(b)}_i \boldsymbol{\mu}^{(b)}_i.
-$$
+```
 
 Predictive uncertainty is represented by combining heteroscedastic branch variance and cross-branch disagreement:
 
-$$
+```math
 u_i =
 \sum_b w^{(b)}_i \bar{\sigma}^{2,(b)}_i
 +
@@ -210,38 +217,39 @@ u_i =
 \left\|
 \boldsymbol{\mu}^{(b)}_i - \hat{\mathbf{y}}^{(0)}_i
 \right\|_2^2
-}{2},
-$$
+}{2}.
+```
 
 where:
 
-$$
+```math
 \bar{\sigma}^{2,(b)}_i =
 \frac{1}{2}
-\sum_{d \in \{sbp, dbp\}}
+\sum_{d \in \{\mathrm{SBP}, \mathrm{DBP}\}}
 \sigma^{2,(b)}_{i,d}.
-$$
+```
 
 This uncertainty is also used to derive a regression-induced risk posterior. For example, the normal-class probability can be approximated by:
 
-$$
-p^{reg}_{i,\mathrm{normal}} =
-\Phi\left(
-\frac{120 - \hat{y}^{(0)}_{i,sbp}}{\sigma_{i,sbp}}
+```math
+p^{\mathrm{reg}}_{i,\mathrm{normal}}
+=
+\Phi\!\left(
+\frac{120 - \hat{y}^{(0)}_{i,\mathrm{SBP}}}{\sigma_{i,\mathrm{SBP}}}
 \right)
-\Phi\left(
-\frac{80 - \hat{y}^{(0)}_{i,dbp}}{\sigma_{i,dbp}}
-\right),
-$$
+\Phi\!\left(
+\frac{80 - \hat{y}^{(0)}_{i,\mathrm{DBP}}}{\sigma_{i,\mathrm{DBP}}}
+\right).
+```
 
 where $\Phi(\cdot)$ is the standard normal CDF. The final regression-induced posterior blends threshold-based and center-based posteriors:
 
-$$
-\mathbf{p}^{reg}_i =
-\lambda_{\mathrm{th}}\mathbf{p}^{th}_i
+```math
+\mathbf{p}^{\mathrm{reg}}_i =
+\lambda_{\mathrm{th}}\mathbf{p}^{\mathrm{th}}_i
 +
-\left(1-\lambda_{\mathrm{th}}\right)\mathbf{p}^{center}_i.
-$$
+\left(1-\lambda_{\mathrm{th}}\right)\mathbf{p}^{\mathrm{center}}_i.
+```
 
 ### 1.5 ADSF: Anchor-Guided Decision and Safe Posterior Fusion
 
@@ -252,67 +260,68 @@ The decision layer uses complementary anchors rather than a single posterior sou
 
 Let the two anchor systems produce:
 
-$$
-\left(\hat{\mathbf{y}}^A_i, \mathbf{p}^A_i\right),
-\quad
-\left(\hat{\mathbf{y}}^B_i, \mathbf{p}^B_i\right).
-$$
+```math
+\left(\hat{\mathbf{y}}^{A}_i, \mathbf{p}^{A}_i\right),
+\qquad
+\left(\hat{\mathbf{y}}^{B}_i, \mathbf{p}^{B}_i\right).
+```
 
 A guided decision head learns from anchor predictions, anchor disagreement, routing behavior, quality scores, and uncertainty descriptors. It is trained with classification, knowledge-distillation, ordinal-consistency, and proxy-BP objectives:
 
-$$
-\mathcal{L}_{guide} =
-\mathcal{L}_{focal}
+```math
+\mathcal{L}_{\mathrm{guide}}
+=
+\mathcal{L}_{\mathrm{focal}}
 +
-\lambda_{KD}\mathcal{L}_{KD}
+\lambda_{\mathrm{KD}}\mathcal{L}_{\mathrm{KD}}
 +
-\lambda_{ord}\mathcal{L}_{ord}
+\lambda_{\mathrm{ord}}\mathcal{L}_{\mathrm{ord}}
 +
-\lambda_{bp}\mathcal{L}_{proxyBP}.
-$$
+\lambda_{\mathrm{bp}}\mathcal{L}_{\mathrm{proxyBP}}.
+```
 
 The posterior mixture-of-experts combines anchor-derived posteriors, guided-head posteriors, and uncertainty-aware meta posteriors:
 
-$$
+```math
 \hat{\mathbf{p}}_i =
 \sum_e \beta_{i,e}\mathbf{p}^{(e)}_i,
-\quad
+\qquad
 \sum_e \beta_{i,e}=1.
-$$
+```
 
 To adapt the decision boundary to class imbalance, class reweighting is applied:
 
-$$
+```math
 \tilde{p}_i(c) =
 \frac{
 \hat{p}_i(c)^\gamma \nu_c
 }{
 \sum_{c'} \hat{p}_i(c')^\gamma \nu_{c'}
-},
-$$
+}.
+```
 
 where $\gamma$ controls posterior sharpness and $\nu_c$ is a class-specific reweighting factor.
 
 A regression-aware safety fusion layer is activated when the decision posterior and regression-induced posterior disagree in clinically relevant high-risk regions:
 
-$$
-\mathbf{p}^{safe}_i =
+```math
+\mathbf{p}^{\mathrm{safe}}_i =
 \left(1-\lambda_i\right)\tilde{\mathbf{p}}_i
 +
-\lambda_i\mathbf{p}^{reg}_i,
-$$
+\lambda_i\mathbf{p}^{\mathrm{reg}}_i.
+```
 
 with:
 
-$$
+```math
 \lambda_i =
-\mathrm{clip}
+\operatorname{clip}
 \left(
-g_{safe}\left(\mathbf{d}_i, \mathbf{u}_i\right),
+g_{\mathrm{safe}}\left(\mathbf{d}_i, \mathbf{u}_i\right),
 0,
 \lambda_{\max}
 \right).
-$$
+```
 
 Here, $\mathbf{d}_i$ summarizes posterior disagreement and $\mathbf{u}_i$ summarizes uncertainty and upper-tail risk cues. The v10.18 decision search and safety fusion logic is implemented in `train_aqm_medfuse_mimic_bp_reg_v10_18_subjectdisjoint_baselineguard_crisisrepair_protocol.py`.
 
@@ -326,60 +335,52 @@ Cuffless BP models often underestimate rare high-BP samples because the data dis
 
 The corrected BP estimate is written as:
 
-$$
+```math
 \hat{\mathbf{y}}_i =
 \hat{\mathbf{y}}^{(0)}_i
 +
-\boldsymbol{\rho}_i \odot \boldsymbol{\delta}^{mono}_i
+\boldsymbol{\rho}_i \odot \boldsymbol{\delta}^{\mathrm{mono}}_i
 +
-\boldsymbol{\delta}^{tail}_i,
-$$
+\boldsymbol{\delta}^{\mathrm{tail}}_i.
+```
 
-where $\boldsymbol{\rho}_i$ is a confidence gate, $\boldsymbol{\delta}^{mono}_i$ is a monotone high-risk calibration shift, and $\boldsymbol{\delta}^{tail}_i$ is a crisis-tail residual correction.
+where $\boldsymbol{\rho}_i$ is a confidence gate, $\boldsymbol{\delta}^{\mathrm{mono}}_i$ is a monotone high-risk calibration shift, and $\boldsymbol{\delta}^{\mathrm{tail}}_i$ is a crisis-tail residual correction.
 
 The crisis-tail correction uses high quantile evidence from branchwise or expertwise proposals:
 
-$$
-\boldsymbol{\delta}^{tail}_i =
-
+```math
+\boldsymbol{\delta}^{\mathrm{tail}}_i =
 \boldsymbol{\kappa}_i \odot
-
-\mathrm{ReLU}
-
+\operatorname{ReLU}
 \left(
-
 \mathbf{q}^{\tau}_i
-
--
-
-\hat{\mathbf{y}}^{(0)}_i
-
--
-\mathbf{m}
-\right),
-$$
+- \hat{\mathbf{y}}^{(0)}_i
+- \mathbf{m}
+\right).
+```
 
 where $\mathbf{q}^{\tau}_i$ is an upper quantile proposal, $\mathbf{m}$ is a safety margin, and $\boldsymbol{\kappa}_i$ is a gain vector controlled by crisis risk and uncertainty. The correction is intentionally nonnegative in the upper-tail setting so that strong high-risk evidence can increase, but not reverse, the safety shift.
 
 The correction stage is selected under bounded-deterioration constraints:
 
-$$
+```math
 \theta^\star =
 \arg\min_{\theta \in \mathcal{H}}
-\mathcal{B}_{tail}(\theta),
-$$
+\mathcal{B}_{\mathrm{tail}}(\theta).
+```
 
 where:
 
-$$
-\mathcal{H} =
+```math
+\mathcal{H}
+=
 \left\{
 \theta:
-\Delta MAE(\theta) \le \epsilon_{mae},
+\Delta\mathrm{MAE}(\theta) \le \epsilon_{\mathrm{mae}},
 \quad
-\Delta Gap_{cov}(\theta) \le \epsilon_{cov}
+\Delta\mathrm{Gap}_{\mathrm{cov}}(\theta) \le \epsilon_{\mathrm{cov}}
 \right\}.
-$$
+```
 
 This means the selected safety configuration must improve upper-tail behavior without causing unacceptable global error or conformal coverage drift.
 
@@ -387,100 +388,104 @@ This means the selected safety configuration must improve upper-tail behavior wi
 
 For each held-out subject, support segments are used to estimate a subject-adaptive affine calibration:
 
-$$
+```math
 \tilde{\mathbf{y}}_i =
 \mathbf{s}_{u(i)} \odot \hat{\mathbf{y}}_i
 +
-\mathbf{b}_{u(i)},
-$$
+\mathbf{b}_{u(i)}.
+```
 
 where $u(i)$ is the subject identity for sample $i$, $\mathbf{s}_{u(i)}$ is the subject-specific scale vector, and $\mathbf{b}_{u(i)}$ is the subject-specific bias vector.
 
 To reduce overfitting when the support set is small, the subject-specific parameters are shrunk toward global estimates:
 
-$$
-\mathbf{s}_u =
+```math
+\begin{aligned}
+\mathbf{s}_u
+&=
 \frac{n_u}{n_u+\tau}\hat{\mathbf{s}}_u
 +
-\frac{\tau}{n_u+\tau}\mathbf{s}_0,
-\quad
-\mathbf{b}_u =
+\frac{\tau}{n_u+\tau}\mathbf{s}_0, \\
+\mathbf{b}_u
+&=
 \frac{n_u}{n_u+\tau}\hat{\mathbf{b}}_u
 +
 \frac{\tau}{n_u+\tau}\mathbf{b}_0.
-$$
+\end{aligned}
+```
 
 Here, $n_u$ is the number of support samples for subject $u$, $\tau$ is the shrinkage strength, and $(\mathbf{s}_0,\mathbf{b}_0)$ are global calibration priors.
 
 The overall training objective combines regression, uncertainty, auxiliary decision, router, credibility, and tail-safety terms:
 
-$$
-\mathcal{L} =
-\mathcal{L}_{reg}
+```math
+\mathcal{L}
+=
+\mathcal{L}_{\mathrm{reg}}
 +
-\lambda_{NLL}\mathcal{L}_{NLL}
+\lambda_{\mathrm{NLL}}\mathcal{L}_{\mathrm{NLL}}
 +
-\lambda_{aux}\mathcal{L}_{aux}
+\lambda_{\mathrm{aux}}\mathcal{L}_{\mathrm{aux}}
 +
-\lambda_{router}\mathcal{L}_{router}
+\lambda_{\mathrm{router}}\mathcal{L}_{\mathrm{router}}
 +
-\lambda_{cred}\mathcal{L}_{cred}
+\lambda_{\mathrm{cred}}\mathcal{L}_{\mathrm{cred}}
 +
-\lambda_{tail}\mathcal{L}_{tail}.
-$$
+\lambda_{\mathrm{tail}}\mathcal{L}_{\mathrm{tail}}.
+```
 
 The heteroscedastic negative log-likelihood term is:
 
-$$
-\mathcal{L}_{NLL}
+```math
+\mathcal{L}_{\mathrm{NLL}}
 =
 \frac{1}{2}
 \sum_i
-\sum_{d \in \{sbp, dbp\}}
+\sum_{d \in \{\mathrm{SBP}, \mathrm{DBP}\}}
 \left[
 \exp(-s_{i,d})(y_{i,d}-\mu_{i,d})^2
 +
 s_{i,d}
 \right].
-$$
+```
 
 The upper-tail asymmetric loss emphasizes clinically undesirable underestimation:
 
-$$
-\mathcal{L}_{tail}
+```math
+\mathcal{L}_{\mathrm{tail}}
 =
 \frac{1}{N}
 \sum_{i=1}^{N}
-\omega^{tail}_i
-\sum_{d \in \{sbp, dbp\}}
+\omega^{\mathrm{tail}}_i
+\sum_{d \in \{\mathrm{SBP}, \mathrm{DBP}\}}
 \left[
-\eta_d \mathrm{ReLU}(y_{i,d}-\hat{y}_{i,d})
+\eta_d \operatorname{ReLU}(y_{i,d}-\hat{y}_{i,d})
 +
-\mathrm{ReLU}(\hat{y}_{i,d}-y_{i,d})
-\right],
-$$
+\operatorname{ReLU}(\hat{y}_{i,d}-y_{i,d})
+\right].
+```
 
 where $\eta_d > 1$ increases the penalty for underestimating high BP.
 
 Split conformal prediction is then used to report interval reliability. For target dimension $d \in \{sbp, dbp\}$, the calibration residual is:
 
-$$
+```math
 s^{(d)}_j =
 \left|
 y^{(d)}_j - \tilde{y}^{(d)}_j
 \right|.
-$$
+```
 
 Given target miscoverage $\alpha$, the conformal interval for sample $i$ is:
 
-$$
+```math
 \mathcal{I}^{(d)}_i =
 \left[
 \tilde{y}^{(d)}_i - q^{(d)}_{1-\alpha},
 \quad
 \tilde{y}^{(d)}_i + q^{(d)}_{1-\alpha}
-\right],
-$$
+\right].
+```
 
 where $q^{(d)}_{1-\alpha}$ is the empirical $(1-\alpha)$ quantile of calibration residuals.
 
