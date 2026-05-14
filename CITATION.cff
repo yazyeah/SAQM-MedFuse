@@ -9,7 +9,7 @@ authors:
     given-names: Aoxuan
   - family-names: Qin
     given-names: Junyuan
-repository-code: "https://github.com/<YOUR_GITHUB_USERNAME>/SAQM-MedFuse"
+repository-code: "https://github.com/yazyeah/SAQM-MedFuse"
 license: MIT
 date-released: 2026-05-14
 preferred-citation:

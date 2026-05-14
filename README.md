@@ -194,7 +194,7 @@ The loader accepts common MIMIC-BP NPY layouts. Each subject should have readabl
 ### 3.1 Clone
 
 ```powershell
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/SAQM-MedFuse.git
+git clone https://github.com/yazyeah/SAQM-MedFuse.git
 cd SAQM-MedFuse
 ```
 
@@ -429,7 +429,7 @@ git add .
 git status
 git commit -m "Release SAQM-MedFuse reproducibility package"
 git branch -M main
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/SAQM-MedFuse.git
+git remote add origin https://github.com/yazyeah/SAQM-MedFuse.git
 git push -u origin main
 ```
 

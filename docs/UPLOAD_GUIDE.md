@@ -61,7 +61,7 @@ git commit -m "Release SAQM-MedFuse reproducibility package"
 Create an empty GitHub repository, for example:
 
 ```text
-https://github.com/<YOUR_GITHUB_USERNAME>/SAQM-MedFuse
+https://github.com/yazyeah/SAQM-MedFuse
 ```
 
 Do not initialize the GitHub repository with another README if you already have
@@ -71,7 +71,7 @@ the local README in this release directory.
 
 ```powershell
 git branch -M main
-git remote add origin https://github.com/<YOUR_GITHUB_USERNAME>/SAQM-MedFuse.git
+git remote add origin https://github.com/yazyeah/SAQM-MedFuse.git
 git push -u origin main
 ```
 
