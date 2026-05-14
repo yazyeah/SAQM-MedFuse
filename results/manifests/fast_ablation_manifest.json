@@ -1,0 +1,7 @@
+{
+  "mode": "cached_prediction_posthoc_ablation",
+  "main_output": "outputs\\mimic_bp_reg_v10_18_subjectdisjoint_baselineguard_crisisrepair_proto",
+  "fast_ablation_summary": "outputs\\v10_18_paper_summary\\fast_ablation_summary.csv",
+  "fast_ablation_stage_bias": "outputs\\v10_18_paper_summary\\fast_ablation_stage_bias.csv",
+  "interpretation_note": "This fast ablation reuses cached v10.18 test predictions and stage traces. It is appropriate for inference-stage selector/fusion/calibration ablations; training-loss or sampler ablations still require a full rerun for a strict retraining ablation."
+}

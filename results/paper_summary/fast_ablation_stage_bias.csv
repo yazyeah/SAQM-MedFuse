@@ -1,0 +1,6 @@
+stage,description,mode,normal_bias_sbp,normal_bias_dbp,elevated_bias_sbp,elevated_bias_dbp,high_bias_sbp,high_bias_dbp,crisis_bias_sbp,crisis_bias_dbp
+pre_guard,before high-risk guard and high-bias calibration,cached_stage_bias_trace,,,-4.078782558441162,-0.7440016269683838,-5.2992377281188965,-2.438213348388672,-21.402236938476562,-6.555450439453125
+post_guard,"after high-risk guard, before high-bias calibration",cached_stage_bias_trace,,,-3.220829486846924,-0.3175543248653412,-1.9445463418960571,-0.23569805920124054,-21.402236938476562,-0.416717529296875
+post_bias_cal,after reliability/high-bias calibration,cached_stage_bias_trace,,,-2.831026792526245,-0.18112342059612274,-0.5935563445091248,0.2371484637260437,-19.531234741210938,0.238128662109375
+post_crisis_fusion,after crisis-tail fusion; v10.18 selected identity here,cached_stage_bias_trace,,,-2.831026792526245,-0.18112342059612274,-0.5935563445091248,0.2371484637260437,-19.531234741210938,0.238128662109375
+final_selected,final selected operating point,cached_stage_bias_trace,2.2704477310180664,0.6596960425376892,-2.831026792526245,-0.18112342059612274,-0.5935563445091248,0.2371484637260437,-19.531234741210938,0.238128662109375

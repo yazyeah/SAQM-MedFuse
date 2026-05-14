@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "SAQM-MedFuse: Safety-aware Quality-driven Multimodal Fusion for Cuffless Blood Pressure Estimation and Risk Stratification"
+message: "If you use this code, please cite the associated paper and the MIMIC-BP dataset."
+type: software
+authors:
+  - family-names: Zhou
+    given-names: Yuang
+  - family-names: Li
+    given-names: Aoxuan
+  - family-names: Qin
+    given-names: Junyuan
+repository-code: "https://github.com/<YOUR_GITHUB_USERNAME>/SAQM-MedFuse"
+license: MIT
+date-released: 2026-05-14
+preferred-citation:
+  type: article
+  title: "SAQM-MedFuse: Safety-aware Quality-driven Multimodal Fusion for Cuffless Blood Pressure Estimation and Risk Stratification"
+  authors:
+    - family-names: Zhou
+      given-names: Yuang
+    - family-names: Li
+      given-names: Aoxuan
+    - family-names: Qin
+      given-names: Junyuan
+  year: 2026
+  journal: "Preprint"

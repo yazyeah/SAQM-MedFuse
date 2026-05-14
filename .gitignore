@@ -1,0 +1,54 @@
+# Python / environment
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local data and generated outputs
+data/
+Datasets/
+outputs/
+runs/
+checkpoints/
+temp*/
+tmp*/
+
+# Restricted clinical data and derived per-subject artifacts
+**/ppg/
+**/ecg/
+**/abp/
+**/resp/
+**/labels/
+**/splits/
+*_entries.csv
+*_subjects.txt
+*_predictions.csv
+*_per_sample*.csv
+*_subjectwise*.csv
+
+# Model weights and large binary artifacts
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Manuscript PDFs downloaded locally
+Papers/
+*.pdf
+
+# Keep curated, anonymized aggregate paper results
+!results/
+!results/**

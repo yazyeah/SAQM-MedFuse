@@ -1,0 +1,14 @@
+# Example path configuration. This YAML file is documentation-oriented; the
+# PowerShell wrappers use command-line arguments and environment variables.
+
+data:
+  mimic_bp_root: "<YOUR_LOCAL_MIMIC_BP_ROOT>"
+  expected_structure:
+    ppg: "<YOUR_LOCAL_MIMIC_BP_ROOT>/ppg"
+    ecg: "<YOUR_LOCAL_MIMIC_BP_ROOT>/ecg"
+    labels: "<YOUR_LOCAL_MIMIC_BP_ROOT>/labels"
+    splits_optional: "<YOUR_LOCAL_MIMIC_BP_ROOT>/splits"
+
+outputs:
+  default_repo_outputs: "./outputs"
+  paper_summary_included: "./results/paper_summary"

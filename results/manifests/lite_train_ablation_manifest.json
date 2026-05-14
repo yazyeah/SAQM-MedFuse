@@ -1,0 +1,47 @@
+{
+  "mode": "stagewise_equalized_lite_train_reduced_search",
+  "variant_set": "paper",
+  "variants": [
+    "full",
+    "no_tail_reweighting",
+    "no_accf1_targeted_head",
+    "no_guided_policy_search",
+    "no_classification_arbiter",
+    "no_baseline_guarded_selector",
+    "no_reliability_bias_calibration",
+    "no_crisis_guard_floor",
+    "no_crisis_tail_debias",
+    "no_safety_evidential_fusion"
+  ],
+  "search_profile": "tiny",
+  "head_epochs": 32,
+  "head_patience": 8,
+  "head_min_epochs": 8,
+  "force_train_each_variant": false,
+  "protocol_note": "Paper suite uses stage-wise equalized lite feature-head training plus reduced candidate grids. Training/head-selection ablations train their own head; downstream selector ablations reuse the full lite-trained head and rerun only the affected search/evaluation. The no_tail_reweighting variant also disables tail emphasis in the trainable head stage, because full backbone tail-loss retraining is intentionally outside the 24h protocol.",
+  "dry_run_candidate_totals": {},
+  "outputs": {
+    "full": "mimic_bp_ablation_v10_18_litetrain_full_proto",
+    "no_tail_reweighting": "mimic_bp_ablation_v10_18_litetrain_no_tail_reweighting_proto",
+    "no_accf1_targeted_head": "mimic_bp_ablation_v10_18_litetrain_no_accf1_targeted_head_proto",
+    "no_guided_policy_search": "mimic_bp_ablation_v10_18_litetrain_no_guided_policy_search_proto",
+    "no_classification_arbiter": "mimic_bp_ablation_v10_18_litetrain_no_classification_arbiter_proto",
+    "no_baseline_guarded_selector": "mimic_bp_ablation_v10_18_litetrain_no_baseline_guarded_selector_proto",
+    "no_reliability_bias_calibration": "mimic_bp_ablation_v10_18_litetrain_no_reliability_bias_calibration_proto",
+    "no_crisis_guard_floor": "mimic_bp_ablation_v10_18_litetrain_no_crisis_guard_floor_proto",
+    "no_crisis_tail_debias": "mimic_bp_ablation_v10_18_litetrain_no_crisis_tail_debias_proto",
+    "no_safety_evidential_fusion": "mimic_bp_ablation_v10_18_litetrain_no_safety_evidential_fusion_proto"
+  },
+  "head_policy": {
+    "full": "variant_lite_trained",
+    "no_tail_reweighting": "variant_lite_trained",
+    "no_accf1_targeted_head": "variant_lite_trained",
+    "no_guided_policy_search": "shared_full_lite_head",
+    "no_classification_arbiter": "shared_full_lite_head",
+    "no_baseline_guarded_selector": "shared_full_lite_head",
+    "no_reliability_bias_calibration": "shared_full_lite_head",
+    "no_crisis_guard_floor": "shared_full_lite_head",
+    "no_crisis_tail_debias": "shared_full_lite_head",
+    "no_safety_evidential_fusion": "shared_full_lite_head"
+  }
+}
