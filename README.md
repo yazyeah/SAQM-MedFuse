@@ -29,6 +29,9 @@ SAQM-MedFuse/
     paper_summary/
       main_version_summary.csv
       comparison_summary.csv
+      major_module_ablation_summary.csv
+      major_module_targeted_ablation_table.csv
+      all_paper_runs_summary.csv
       lite_train_ablation_summary.csv
       fast_ablation_summary.csv
       ...
@@ -414,11 +417,10 @@ These files are intended for paper-level auditing and quick comparison. They are
 
 The included result files should be safe to publish because they are aggregate CSV/JSON summaries and selected figures. They should not contain raw waveforms, subject-level private files, model checkpoints, or per-sample prediction tables.
 
-Note: the current release package excludes incomplete major-module `paperfix`
-summary CSVs. After the major-module suite finishes, copy the completed
-`major_module_ablation_summary.csv`, `major_module_ablation_manifest.json`, and
-the refreshed `all_paper_runs_summary.csv` into `results/` only if all
-`completed` flags are true.
+The current release package includes the completed major-module `paperfix`
+ablation summaries. For manuscript reporting, use
+`major_module_targeted_ablation_table.csv` as the compact module-specific table
+and `major_module_ablation_summary.csv` as the full audit table.
 
 ## 6. Runtime Notes
 

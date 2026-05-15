@@ -1,0 +1,44 @@
+{
+  "mode": "major_module_equal_budget_frozen_backbone_reduced_search",
+  "variant_set": "major",
+  "variants": [
+    "major_full",
+    "no_quality_sparse_fusion",
+    "no_uncertainty_credibility",
+    "no_anchor_decision_refinement",
+    "no_tail_safety_calibration",
+    "no_personalized_conformal"
+  ],
+  "search_profile": "tiny",
+  "head_epochs": 24,
+  "head_patience": 6,
+  "head_min_epochs": 8,
+  "run_tag": "paperfix",
+  "force_train_each_variant": false,
+  "protocol_note": "Major-module suite reports Full + five paper-facing module ablations. All variants use the same frozen backbone/anchor checkpoints, subject-disjoint splits, and reduced vectorized selector grids. Only modules that directly change the guided feature head (the full reference and the quality/sparse-fusion proxy) retrain that head by default; downstream decision, uncertainty, safety, and personalization ablations share the major_full head and rerun their affected search/evaluation stages. The SAP/conformal ablation disables subject-level affine calibration through the stage-aware stack.",
+  "dry_run_candidate_totals": {},
+  "outputs": {
+    "major_full": "mimic_bp_ablation_v10_18_litetrain_major_full_paperfix_proto",
+    "no_quality_sparse_fusion": "mimic_bp_ablation_v10_18_litetrain_no_quality_sparse_fusion_paperfix_proto",
+    "no_uncertainty_credibility": "mimic_bp_ablation_v10_18_litetrain_no_uncertainty_credibility_paperfix_proto",
+    "no_anchor_decision_refinement": "mimic_bp_ablation_v10_18_litetrain_no_anchor_decision_refinement_paperfix_proto",
+    "no_tail_safety_calibration": "mimic_bp_ablation_v10_18_litetrain_no_tail_safety_calibration_paperfix_proto",
+    "no_personalized_conformal": "mimic_bp_ablation_v10_18_litetrain_no_personalized_conformal_paperfix_proto"
+  },
+  "head_policy": {
+    "major_full": "variant_lite_trained",
+    "no_quality_sparse_fusion": "variant_lite_trained",
+    "no_uncertainty_credibility": "shared_full_lite_head",
+    "no_anchor_decision_refinement": "shared_full_lite_head",
+    "no_tail_safety_calibration": "shared_full_lite_head",
+    "no_personalized_conformal": "shared_full_lite_head"
+  },
+  "head_source_output": {
+    "major_full": "",
+    "no_quality_sparse_fusion": "",
+    "no_uncertainty_credibility": "mimic_bp_ablation_v10_18_litetrain_major_full_paperfix_proto",
+    "no_anchor_decision_refinement": "mimic_bp_ablation_v10_18_litetrain_major_full_paperfix_proto",
+    "no_tail_safety_calibration": "mimic_bp_ablation_v10_18_litetrain_major_full_paperfix_proto",
+    "no_personalized_conformal": "mimic_bp_ablation_v10_18_litetrain_major_full_paperfix_proto"
+  }
+}
