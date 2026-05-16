@@ -77,8 +77,7 @@ The implementation is intentionally multi-stage. Earlier stages learn multimodal
 
 ### 1.3 QESF: Quality-Aware Encoding and Sparse Fusion
 
-<img width="2635" height="1059" alt="QESF" src="https://github.com/user-attachments/assets/b373214a-cf07-4a0b-ad94-430582a367b7" />
-
+<img width="2643" height="1112" alt="QESF" src="https://github.com/user-attachments/assets/22bc98c2-53c2-4519-b32b-83acac34e76c" />
 
 For each modality $m \in \{\mathrm{ppg}, \mathrm{ecg}\}$, the model extracts a learned waveform representation $\mathbf{h}^{(m)}_i$ and a quality descriptor $\boldsymbol{\phi}^{(m)}_i$. The quality score and modality token are:
 
