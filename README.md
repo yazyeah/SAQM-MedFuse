@@ -140,6 +140,9 @@ Here, $\tilde{\mathbf{p}}_i$ is the selected decision posterior, $\mathbf{p}^{\m
 
 ### 1.6 STC: Safety-Aware Tail Calibration and Residual Correction
 
+<img width="2235" height="1576" alt="STC" src="https://github.com/user-attachments/assets/84077e22-94b5-4d66-a0fb-cc5dc17b9944" />
+
+
 Cuffless BP models often shrink rare high-BP samples toward the population mean. SAQM-MedFuse therefore adds a safety-oriented correction stage for clinically undesirable upper-tail underestimation:
 
 ```math
