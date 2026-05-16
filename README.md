@@ -1,4 +1,4 @@
-﻿# SAQM-MedFuse Codes and Reproducibility
+# SAQM-MedFuse Codes and Reproducibility
 
 
 This repository provides the reproducibility code and aggregate paper results for:
@@ -118,6 +118,9 @@ u_i = \sum_b w^{(b)}_i\bar{\sigma}^{2,(b)}_i + \sum_b w^{(b)}_i\|\boldsymbol{\mu
 The uncertainty proxy combines heteroscedastic branch variance and disagreement across branches. It is later reused for risk posterior estimation and safety-aware decision fusion.
 
 ### 1.5 ADSF: Anchor-Guided Decision and Safe Posterior Fusion
+
+<img width="2587" height="1682" alt="ADSF" src="https://github.com/user-attachments/assets/a9afcbfc-ee09-483f-9d76-cb8efe8e785e" />
+
 
 The decision layer uses complementary anchors rather than relying on a single posterior source. One anchor favors regression stability; the other favors class-boundary discrimination. A guided decision head is trained with classification, distillation, ordinal, and proxy-BP objectives:
 
