@@ -97,7 +97,8 @@ This design lets the model reduce reliance on corrupted or missing modalities ra
 
 ### 1.4 URC: Uncertainty-Aware Regression and Credibility Aggregation
 
-<img width="2631" height="1459" alt="URC" src="https://github.com/user-attachments/assets/7253d645-fa8d-4c98-b575-3f531eaa2e7c" />
+<img width="2631" height="1459" alt="URC" src="https://github.com/user-attachments/assets/d742b6e1-8fdb-4806-9ea4-ce490285a905" />
+
 
 
 SAQM-MedFuse attaches regression branches to the PPG, ECG, and fused representations. Each branch predicts a BP mean and a log-variance vector:
