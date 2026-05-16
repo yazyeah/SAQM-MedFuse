@@ -1,4 +1,4 @@
-﻿# SAQM-MedFuse Codes and Reproducibility<img width="2635" height="1059" alt="QESF" src="https://github.com/user-attachments/assets/f9b840b7-2aba-4166-9416-65c4030ca003" />
+﻿# SAQM-MedFuse Codes and Reproducibility
 
 
 This repository provides the reproducibility code and aggregate paper results for:
