@@ -77,7 +77,8 @@ The implementation is intentionally multi-stage. Earlier stages learn multimodal
 
 ### 1.3 QESF: Quality-Aware Encoding and Sparse Fusion
 
-<img width="2643" height="1112" alt="QESF" src="https://github.com/user-attachments/assets/22bc98c2-53c2-4519-b32b-83acac34e76c" />
+<img width="2643" height="1112" alt="QESF" src="https://github.com/user-attachments/assets/bf5896e0-ca0f-4c44-bb3f-8dfc8684e03c" />
+
 
 For each modality $m \in \{\mathrm{ppg}, \mathrm{ecg}\}$, the model extracts a learned waveform representation $\mathbf{h}^{(m)}_i$ and a quality descriptor $\boldsymbol{\phi}^{(m)}_i$. The quality score and modality token are:
 
@@ -97,7 +98,8 @@ This design lets the model reduce reliance on corrupted or missing modalities ra
 
 ### 1.4 URC: Uncertainty-Aware Regression and Credibility Aggregation
 
-<img width="2631" height="1459" alt="URC" src="https://github.com/user-attachments/assets/d742b6e1-8fdb-4806-9ea4-ce490285a905" />
+<img width="2631" height="1459" alt="URC" src="https://github.com/user-attachments/assets/fb0f68e0-058b-4c07-a807-1bf0b3bfb559" />
+
 
 
 
@@ -161,6 +163,9 @@ The monotone term $\boldsymbol{\delta}^{\mathrm{mono}}_i$ is controlled by high-
 The operating point is selected on validation data under bounded-deterioration constraints, so upper-tail protection should not create unacceptable global MAE or conformal-coverage drift.
 
 ### 1.7 POCR: Personalization and Conformal Reliability
+
+<img width="2897" height="1266" alt="POCR" src="https://github.com/user-attachments/assets/895a806d-66e8-4028-a645-3223650c33c7" />
+
 
 For each held-out subject, support segments estimate a subject-adaptive affine calibration:
 
