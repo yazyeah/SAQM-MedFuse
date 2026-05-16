@@ -5,7 +5,7 @@ This repository provides the reproducibility code and aggregate paper results fo
 
 > SAQM-MedFuse: Safety-aware Quality-driven Multimodal Fusion for Cuffless Blood Pressure Estimation and Risk Stratification
 
-SAQM-MedFuse is a research-stage multimodal framework for joint systolic/diastolic blood pressure (SBP/DBP) estimation and four-level blood pressure risk stratification from synchronized photoplethysmography (PPG) and electrocardiography (ECG). The code is organized to reproduce the main experiment, representative comparison baselines, and the paper-facing major-module ablation suite.
+SAQM-MedFuse is a research-stage multimodal framework for joint systolic/diastolic blood pressure (SBP/DBP) estimation and four-level blood pressure risk stratification from synchronized photoplethysmography (PPG) and electrocardiography (ECG). The code is organized to reproduce the main experiment, representative comparison baselines, and the paper-facing major-module ablation suite. The manuscript was submitted to Biomedical Signal Processing and Control (BSPC) https://www.sciencedirect.com/journal/biomedical-signal-processing-and-control.
 
 Important: this repository does not include raw MIMIC-BP, MIMIC-III, or PhysioNet data. Users must download the dataset independently and comply with the corresponding data license and use agreement.
 
